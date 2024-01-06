@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "jxFe3msY+ZKzF5mKU3t9q6firjvy621qDVoo4MVVbhjOg21lxORj1vzysnU7IVhGbYWMWu8Zo5Ce6VJ7YXbNww==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Sasha\\source\\repos\\AutoSuperAutoPets\\SuperAutoSimulator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sasha\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

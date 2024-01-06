@@ -1,0 +1,17 @@
+C:\Users\Sasha\source\repos\ML\bin\Debug\net7.0\ML.exe
+C:\Users\Sasha\source\repos\ML\bin\Debug\net7.0\ML.deps.json
+C:\Users\Sasha\source\repos\ML\bin\Debug\net7.0\ML.runtimeconfig.json
+C:\Users\Sasha\source\repos\ML\bin\Debug\net7.0\ML.dll
+C:\Users\Sasha\source\repos\ML\bin\Debug\net7.0\ML.pdb
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.AssemblyInfoInputs.cache
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.AssemblyInfo.cs
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.csproj.CoreCompileInputs.cache
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.dll
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\refint\ML.dll
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.pdb
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.genruntimeconfig.cache
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ref\ML.dll
+C:\Users\Sasha\source\repos\ML\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.csproj.AssemblyReference.cache
+C:\Users\Sasha\source\repos\ML\obj\Debug\net7.0\ML.csproj.CopyComplete
