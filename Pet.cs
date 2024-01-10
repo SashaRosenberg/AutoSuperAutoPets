@@ -14,6 +14,7 @@
     public int Sell { get; set; } = 1;
     public string Pack { get; set; } = "Turtle";
     public int Position { get; set; } = 0; // Added Position property
+    public int Level {  get; set; } = 1;
     public Pet()
     {
 
@@ -31,6 +32,7 @@
         Sell = sell;
         Pack = pack;
         Position = position;
+        Level = 1;
     }
 
     public Pet(Pet p)
@@ -46,11 +48,15 @@
         Sell = p.Sell;
         Pack = p.Pack;
         Position = p.Position;
+        Level = p.Level;
     }
     public void AttackPet(Pet target)
     {
         target.Health -= this.Attack;
     }
+
+    public void trigger()
+    { this.Attack = 0; }
 
 }
 
