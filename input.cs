@@ -51,14 +51,14 @@ namespace SuperAutoSimulator
         {
             switch (reason)
             {
-                case "test":
-                    Console.WriteLine("");
+                case "NAP":
+                    Console.WriteLine("you know what you did :(");
                     break;
             }
         }
         public static void BuyMenu()
         {
-            string userInput, userInput2;
+            string userInput;
             bool RunningBuy = true, RunningBuy2 = false;
             int choice = -1;
             Console.WriteLine("Please pick who you would like to buy\n");
@@ -66,6 +66,7 @@ namespace SuperAutoSimulator
             while (RunningBuy)
             {
                 DisplayPets("Shop");
+                Console.WriteLine("--Back--");
                 userInput = Console.ReadLine();
 
                 switch (userInput)
@@ -115,6 +116,8 @@ namespace SuperAutoSimulator
                 {
                     Console.WriteLine("where would you like them?\nCURRENT TEAM\n");
                     DisplayPets("Player");
+                    Console.WriteLine("--Back--");
+
                     userInput = Console.ReadLine();
                     switch (userInput)
                     {
@@ -180,8 +183,7 @@ namespace SuperAutoSimulator
             else if (owner == "Shop")
             {
                 color = Color.Yellow;
-                result = $"Shop Tier: {CurrentTier} \n";
-                result += "Shop Pets Avaliable: \n";
+                result = "Shop Pets Avaliable: \n";
 
                 foreach (var Pet in ShopInventory)
                 {
@@ -190,7 +192,6 @@ namespace SuperAutoSimulator
             }
 
             Console.WriteLine(result, color);
-            Console.WriteLine("--Back--");
 
         }
         public static void EndTurn()
@@ -275,14 +276,24 @@ namespace SuperAutoSimulator
         }
         public static void drawShop()
         {
+            PlayerStats();
             Console.WriteLine("\n" +
                 "Welcome to the shop!\n" +
                 "Buy - choose a pet to buy\n" +
                 "Sell - sell one of your pets\n" +
                 "Move - Move your pets around\n" +
                 "Roll - Pay 1 coin to refresh pets in the shop\n" +
-                "End Turn - Fight!");
+                "End Turn - Fight!\n");
+            Console.WriteLine("--Back--");
         }
-
+        public static void PlayerStats()
+        {
+            Console.WriteLine($"\n" +
+                $"Hearts: {hearts}\n" +
+                $"Coins: {playerCoins}\n" +
+                $"Stars: {starsOwned}\n" +
+                $"Round: {gameNumber}" +
+                $"Shop Tier: {CurrentTier}");
+        }
     }
 }

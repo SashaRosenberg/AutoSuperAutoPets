@@ -29,9 +29,22 @@ class Shop
     }
     public static void buyPet(int buy, int pos)
     {
-
+        if (ShopInventory[buy].Name == "-")
+        {
+            InOut.FailedPurchase("NAP");
+        }
+        else if (playerPets[pos].Name == "-")
+        {
+            playerPets.Remove(playerPets[pos]);
             playerPets.Insert(pos, ShopInventory[buy]);
+            playerPets[pos].Position = pos;
+
+            ShopInventory.Remove(ShopInventory[buy]);
+            ShopInventory.Insert(buy, new Pet());
+            ShopInventory[buy].Position = buy;
             InOut.DisplayPets("Player");
+        }
+
     }
     public static List<Pet> LoadRandomPets(int petcount, int? tier)
     {
