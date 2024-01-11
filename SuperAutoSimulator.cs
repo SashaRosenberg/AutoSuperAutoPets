@@ -14,7 +14,10 @@ namespace SuperAutoSimulator
         public static int hearts = 500; //5 is the default
         public static int CurrentTier = 0;
         public static int CrownTracker = 0;
-
+        public static int playerCoins = 0;
+        public static int enemyCoins = 0;
+        
+        
         //Set game rules\\
         public static List<Pet> allPets;
         //static double elapsedSeconds;
@@ -37,6 +40,12 @@ namespace SuperAutoSimulator
                 //clear the two players of their teams
                 enemyPets.Clear();
                 playerPets.Clear();
+
+                //creates empty array entries
+                for (int i = 0; i <= 4; i++)
+                { 
+                playerPets.Insert(i, new Pet());
+                }
 
                 //clear the shop
                 CurrentTier = 0;
@@ -69,11 +78,11 @@ namespace SuperAutoSimulator
                 }
                 if (starsOwned >= 10)
                 {
-                    Console.WriteLine("Player Wins");
+                    InOut.GameOver("win");
                 }
                 else if (hearts >= 0)
                 {
-                    Console.WriteLine("player Eliminated");
+                    InOut.GameOver("lose");
                 }
             }
         }
@@ -99,16 +108,13 @@ namespace SuperAutoSimulator
             int r = n % 2;
             if (r == 0)
             {
-                Console.WriteLine($"{n} is not odd");
-                return
-                    false;
+                InOut.isOdd(false, n);
+                return false;
             }
             else
             {
-                Console.WriteLine($"{n} is odd");
-
-                return
-                    true;
+                InOut.isOdd(true, n);
+                return true;
             }
         }
         public static int binarySearch(int[] arr, int x)

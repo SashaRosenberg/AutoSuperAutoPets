@@ -8,40 +8,30 @@ class Shop
     public static void RunShopPhase()
     {
         executeShopCode();
-        playerPets = LoadRandomPets(5, CurrentTier);
+        //playerPets = LoadRandomPets(5, CurrentTier);
         enemyPets = LoadRandomPets(5, CurrentTier);
     }
     public static void executeShopCode()
     {
         //check if we upgrade the shop
-        if(isOdd(gameNumber) && gameNumber < 12)
+        if (isOdd(gameNumber) && gameNumber < 12)
         {
             CurrentTier++;
+            playerCoins = 10;
             ShopInventory = LoadRandomPets(5, CurrentTier);
-            PickPet();
-
+            InOut.DisplayPets("Player");
+            InOut.DisplayPets("Shop");
+            InOut.ShopInput();
         }
 
         //ShopInventory
 
     }
-    public static List<Pet> refreshShop(int count)
+    public static void buyPet(int buy, int pos)
     {
-        List<Pet> resultPets = new List<Pet>();
 
-        for (int i = 1; i <= count; i++)
-        {
-            Pet randomPet = potentialPets[rnd.Next(allPets.Count)];
-            randomPet.Position = resultPets.Count;
-            resultPets.Add(new Pet(randomPet)); // Create a new instance of Pet
-        }
-        return resultPets;
-
-    }
-    public static void PickPet()
-    {
-        InOut.DisplayPets("Shop");
-        //Console.Read();
+            playerPets.Insert(pos, ShopInventory[buy]);
+            InOut.DisplayPets("Player");
     }
     public static List<Pet> LoadRandomPets(int petcount, int? tier)
     {
@@ -53,7 +43,7 @@ class Shop
             {
                 potentialPets.Add(allPets[i]);
             }
-            if (allPets[i].Tier == tier+1)
+            if (allPets[i].Tier == tier + 1)
             {
                 NextLevelPets.Add(allPets[i]);
             }

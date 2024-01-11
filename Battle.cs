@@ -36,7 +36,7 @@ class Battle
             // Check if player's Pet is defeated
             if (playerPet.Health <= 0)
             {
-                Console.WriteLine("Player Pet defeated!");
+                InOut.LoseOutput("Player");
                 playerPets.Remove(playerPet);
                 AdjustPositions(playerPets);
             }
@@ -44,7 +44,7 @@ class Battle
             // Check if enemy's Pet is defeated
             if (enemyPet.Health <= 0)
             {
-                Console.WriteLine("Enemy Pet defeated!");
+                InOut.LoseOutput("Owner");
                 enemyPets.Remove(enemyPet);
                 AdjustPositions(enemyPets);
             }
@@ -53,7 +53,7 @@ class Battle
             InOut.DisplayPets("Player");
             InOut.DisplayPets("Enemy");
 
-            Console.WriteLine("\n--- Next Turn ---"); //change this?
+            InOut.EndTurn();
         }
         displayVictor(playerPets, enemyPets);
     }
@@ -65,30 +65,26 @@ class Battle
         if (!pp.Any() && !ep.Any())
         {
             playerDraws++;
-            Console.WriteLine("\nDRAW!");
+            InOut.RoundResult("draw");
         }
         else if (ep.Any())
         {
             enemyWins++;
-            Console.WriteLine("\nEnemy wins!");
+            InOut.RoundResult("lose");
             hearts--;
         }
         else if (pp.Any())
         {
             playerWins++;
-            Console.WriteLine("\nPlayer wins!");
+            InOut.RoundResult("win");
             starsOwned++;
         }
-
-        //enter shop phase\\
-
-        Console.WriteLine($"\nGamecounter: {gameNumber}\n");
+        InOut.GameCount();
         gameNumber++;
     }
     static void battleindividualPets(Pet attacker, Pet defender)
     {
 
-        //input.($"Players {attacker.Name} attacks {defender.Name}!");
         // Check if the pets will kill each other
         int damageToDefender = attacker.Attack;
         int damageToAttacker = defender.Attack;
@@ -97,8 +93,7 @@ class Battle
         attacker.Health -= damageToAttacker;
 
         // Log the damage dealt
-        Console.WriteLine($"Players {attacker.Name} deals {damageToDefender} damage to Enemies {defender.Name}");
-        Console.WriteLine($"Enemies {defender.Name} deals {damageToAttacker} damage to {attacker.Name}");
+        InOut.battleEvents(attacker, defender, damageToAttacker, damageToDefender);
     }
 
     static void AdjustPositions(List<Pet> Pets)

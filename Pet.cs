@@ -17,6 +17,18 @@
     public int Level {  get; set; } = 1;
     public Pet()
     {
+        Name = "-";
+        Attack = 0;
+        Health = 0;
+        Tier = 0;
+        AbilityTrigger1 = null;
+        AbilityTrigger2 = null;
+        AbilityTrigger3 = null;
+        Cost = 0;
+        Sell = 0;
+        Pack = "-";
+        Position = SuperAutoSimulator.SuperAutoSimulator.playerPets.Count;
+        Level = 0;
 
     }
     public Pet(string name, int attack, int health, int tier, string abilityTrigger1, string abilityTrigger2, string abilityTrigger3, int cost, int sell, string pack, int position)
