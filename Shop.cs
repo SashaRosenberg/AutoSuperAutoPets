@@ -7,24 +7,60 @@ class Shop
     static public List<Pet> NextLevelPets = new List<Pet>();
     public static void RunShopPhase()
     {
+        generateWhiteSpace();
+
         executeShopCode();
+
         //playerPets = LoadRandomPets(5, CurrentTier);
         enemyPets = LoadRandomPets(5, CurrentTier);
     }
+    static void generateWhiteSpace()
+    {
+        if (playerPets.Any() == false)
+        {
+            for (int i = 0; i <= 4; i++)
+            {
+                playerPets.Insert(i, new Pet());
+            }
+        }
+        else
+        {
+            for (int n = 0;  n < playerPets.Count;  n++)
+            {
+                playerPets[n].Position = n;
+            }
+        }
+    }
+
     public static void executeShopCode()
     {
         //check if we upgrade the shop
         if (isOdd(gameNumber) && gameNumber < 12)
         {
             CurrentTier++;
-            playerCoins = 10;
-            ShopInventory = LoadRandomPets(5, CurrentTier);
-            InOut.DisplayPets("Player");
-            InOut.DisplayPets("Shop");
-            InOut.ShopInput();
         }
+        playerCoins = 10;
+        ShopInventory = LoadRandomPets(5, CurrentTier);
+        InOut.DisplayPets("Player");
+        InOut.DisplayPets("Shop");
+        InOut.ShopInput();
 
         //ShopInventory
+
+    }
+    public static void SellPet(int pos)
+    {
+        if (playerPets[pos].Name == "-")
+        {
+            InOut.FailedPurchase("NAP");
+        }
+        else if (playerPets[pos].Name != "-")
+        {
+            playerCoins = playerCoins + playerPets[pos].Sell;
+            playerPets.Remove(playerPets[pos]);
+            playerPets.Insert(pos, new Pet());
+            playerPets[pos].Position = pos;
+        }
 
     }
     public static void buyPet(int buy, int pos)
@@ -33,9 +69,14 @@ class Shop
         {
             InOut.FailedPurchase("NAP");
         }
+        else if (ShopInventory[buy].Cost > playerCoins)
+        {
+            InOut.FailedPurchase("NAP"); //change this to a coin specific varient
+        }
         else if (playerPets[pos].Name == "-")
         {
             playerPets.Remove(playerPets[pos]);
+            playerCoins = playerCoins - ShopInventory[buy].Cost;
             playerPets.Insert(pos, ShopInventory[buy]);
             playerPets[pos].Position = pos;
 
@@ -44,7 +85,36 @@ class Shop
             ShopInventory[buy].Position = buy;
             InOut.DisplayPets("Player");
         }
+        else if (playerPets[pos].Name != "-")
+        {
+            InOut.FailedPurchase("NAP"); //make space occupied code
 
+        }
+
+    }
+    public static void MovePet(int pet, int newPos)
+    {
+        Pet p = new Pet();
+        Pet p2 = new Pet();
+        if (playerPets[pet].Name == "-")
+        {
+            //put input code here
+        }
+        else
+        {
+            p = new Pet(playerPets[pet]);
+            p2 = new Pet(playerPets[newPos]);
+            playerPets.Remove(playerPets[pet]);
+            playerPets.Remove(playerPets[newPos]);
+
+            playerPets.Insert(pet, p);
+            playerPets[pet].Position = p.Position;
+
+            playerPets.Insert(newPos, p2);
+            playerPets[newPos].Position = p.Position;
+
+        }
+        InOut.DisplayPets("Player");
     }
     public static List<Pet> LoadRandomPets(int petcount, int? tier)
     {

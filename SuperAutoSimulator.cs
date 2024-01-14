@@ -41,12 +41,6 @@ namespace SuperAutoSimulator
                 enemyPets.Clear();
                 playerPets.Clear();
 
-                //creates empty array entries
-                for (int i = 0; i <= 4; i++)
-                { 
-                playerPets.Insert(i, new Pet());
-                }
-
                 //clear the shop
                 CurrentTier = 0;
                 ShopInventory.Clear();

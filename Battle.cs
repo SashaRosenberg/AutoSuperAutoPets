@@ -1,34 +1,55 @@
-﻿using Microsoft.VisualBasic;
-using SuperAutoSimulator;
-using System.Drawing;
+﻿using SuperAutoSimulator;
 using static SuperAutoSimulator.SuperAutoSimulator;
 class Battle
 {
+    public static List<Pet> PetsFighting = new List<Pet>();
     public static void StartBattlePhase()
     {
+        for(int i = 0; playerPets.Count > i; i++)
+        {
+            PetsFighting.Add(new Pet(playerPets[i])); // Create a new instance of Pet
+
+        }
         //remove number of battles
         turnCounter = 0;
-        InOut.DisplayPets("Player");
+        MovePetsForward(); // add a section to move enemy pets forward too
+        InOut.DisplayPets("PlayerFighting");
         InOut.DisplayPets("Enemy");
 
         // Simulate a battle
-        simulateBattle(playerPets, enemyPets);
+        simulateBattle(PetsFighting, enemyPets);
 
     }
-    static void simulateBattle(List<Pet> playerPets, List<Pet> enemyPets)
+    static void MovePetsForward()
     {
-
-        while (playerPets.Any() && enemyPets.Any())
+        for(int n = 0; n < PetsFighting.Count; n++)
+        {
+            if (PetsFighting[n].Name == "-")
+            {
+                PetsFighting.RemoveAt(n);
+                n = -1;
+            }
+            InOut.DisplayPets("PlayerFighting");
+        }
+        for(int n = 0; n < PetsFighting.Count; n++)
+        {
+            PetsFighting[n].Position = n;
+        }
+    }
+    static void simulateBattle(List<Pet> pP, List<Pet> eP)
+    {
+        while (pP.Any() && eP.Any())
         {
             //turnCounter++;
 
 
             // Get the first pet from both player and enemy Pets
-            Pet playerPet = playerPets.First();
-            Pet enemyPet = enemyPets.First();
+            Pet playerPet = pP.First();
+            Pet enemyPet = eP.First();
 
             // Display Pet status
-            InOut.Display2PetsForBattle(playerPet, enemyPet);
+            InOut.Display2PetsForBattle(playerPet, enemyPet); //merge these two functions?
+
 
             // Check if the pets will kill each other
             battleindividualPets(playerPet, enemyPet);
@@ -36,26 +57,26 @@ class Battle
             // Check if player's Pet is defeated
             if (playerPet.Health <= 0)
             {
-                InOut.LoseOutput("Player");
-                playerPets.Remove(playerPet);
-                AdjustPositions(playerPets);
+                InOut.LoseOutput("PlayerFighting");
+                pP.Remove(playerPet); //change this somewhat
+                AdjustPositions(PetsFighting);
             }
 
             // Check if enemy's Pet is defeated
             if (enemyPet.Health <= 0)
             {
                 InOut.LoseOutput("Owner");
-                enemyPets.Remove(enemyPet);
-                AdjustPositions(enemyPets);
+                eP.Remove(enemyPet);
+                AdjustPositions(eP);
             }
 
             // Log Pet status after the battle
-            InOut.DisplayPets("Player");
+            InOut.DisplayPets("PlayerFighting");
             InOut.DisplayPets("Enemy");
 
             InOut.EndTurn();
         }
-        displayVictor(playerPets, enemyPets);
+        displayVictor(pP, eP); //change this
     }
 
     static void displayVictor(List<Pet> pp, List<Pet> ep)

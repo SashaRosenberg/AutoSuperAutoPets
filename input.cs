@@ -23,15 +23,20 @@ namespace SuperAutoSimulator
                         break;
 
                     case "Sell":
+                        Console.Clear();
+                        SellMenu();
                         break;
 
                     case "Move":
+                        Console.Clear();
+                        MoveMenu();
                         break;
 
                     case "Roll":
-                        Console.Clear();
-                        Shop.LoadRandomPets(5, CurrentTier);
+                        Console.Clear();//move this?
+                        ShopInventory = Shop.LoadRandomPets(5, CurrentTier);
                         DisplayPets("Shop");
+                        playerCoins = playerCoins - 1;
                         break;
 
                     case "End Turn":
@@ -55,6 +60,91 @@ namespace SuperAutoSimulator
                     Console.WriteLine("you know what you did :(");
                     break;
             }
+        }
+        public static void SellMenu()
+        {
+            string userInput;
+            bool RunningSell = true, RunningSell2 = true;
+            int choice = -1;
+
+            while (RunningSell)
+            {
+                Console.Write("Select pet to sell\n");
+                DisplayPets("Player");
+                Console.WriteLine("--Back--");
+                userInput = Console.ReadLine();
+
+                switch (userInput) //simplify this.
+                {
+                    case "1":
+                        choice = 1 + -1;
+                        RunningSell = false;
+                        break;
+
+                    case "2":
+                        choice = 2 + -1;
+                        RunningSell = false;
+                        break;
+
+                    case "3":
+                        choice = 3 + -1;
+                        RunningSell = false;
+                        break;
+
+                    case "4":
+                        choice = 4 + -1;
+                        RunningSell = false;
+
+                        break;
+
+                    case "5":
+                        choice = 5 + -1;
+                        RunningSell = false;
+
+                        break;
+
+                    case "Back":
+                        RunningSell = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("i dont have a SPELL READY");
+                        break;
+                }
+                while (RunningSell2)
+                {
+                    Console.WriteLine($"Are you sure you want to sell {playerPets[choice].Name} for {playerPets[choice].Sell} coins?\n");
+                    PlayerStats();
+                    DisplayPets("Player");
+                    Console.WriteLine("--Back--");
+
+                    userInput = Console.ReadLine();
+                    switch (userInput)
+                    {
+                        case "Yes":
+                            Shop.SellPet(choice);
+                            RunningSell2= false;
+                            break;
+
+                        case "No":
+                            RunningSell = true;
+                            RunningSell2 = false;
+                            break;
+
+                        case "Back":
+                            RunningSell = true;
+                            RunningSell2 = false;
+                            break;
+
+                        default:
+                            Console.WriteLine("i dont have a SPELL READY");
+                            break;
+                    }
+                }
+
+            }
+
+
         }
         public static void BuyMenu()
         {
@@ -85,7 +175,7 @@ namespace SuperAutoSimulator
 
                     case "3":
                         choice = 3 + -1;
-                        RunningBuy2 = true; 
+                        RunningBuy2 = true;
                         RunningBuy = false;
                         break;
 
@@ -160,6 +250,110 @@ namespace SuperAutoSimulator
             }
 
         }
+        public static void MoveMenu()
+        {
+            string userInput;
+            bool RunningBuy = true, RunningBuy2 = false;
+            int choice = -1;
+            Console.WriteLine("Who Do you want to move?\n");
+
+            while (RunningBuy)
+            {
+                DisplayPets("Player");
+                Console.WriteLine("--Back--");
+                userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        choice = 1 + -1;
+                        RunningBuy2 = true;
+                        RunningBuy = false;
+                        break;
+
+                    case "2":
+                        choice = 2 + -1;
+                        RunningBuy2 = true;
+                        RunningBuy = false;
+                        break;
+
+                    case "3":
+                        choice = 3 + -1;
+                        RunningBuy2 = true;
+                        RunningBuy = false;
+                        break;
+
+                    case "4":
+                        choice = 4 + -1;
+                        RunningBuy2 = true;
+                        RunningBuy = false;
+
+                        break;
+
+                    case "5":
+                        choice = 5 + -1;
+                        RunningBuy2 = true;
+                        RunningBuy = false;
+
+                        break;
+
+                    case "Back":
+                        RunningBuy = false;
+                        RunningBuy2 = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("i dont have a SPELL READY");
+                        break;
+                }
+                while (RunningBuy2)
+                {
+                    Console.WriteLine($"Where do you want to move {playerPets[choice]}?\n");
+                    DisplayPets("Player");
+                    Console.WriteLine("--Back--");
+
+                    userInput = Console.ReadLine();
+                    switch (userInput)
+                    {
+                        case "1":
+                            Shop.MovePet(choice, 1 + -1);
+                            RunningBuy2 = false;
+                            break;
+
+                        case "2":
+                            Shop.MovePet(choice, 2 + -1);
+                            RunningBuy2 = false;
+                            break;
+
+                        case "3":
+                            Shop.MovePet(choice, 3 + -1);
+                            RunningBuy2 = false;
+                            break;
+
+                        case "4":
+                            Shop.MovePet(choice, 4 + -1);
+                            RunningBuy2 = false;
+                            break;
+
+                        case "5":
+                            Shop.MovePet(choice, 5 + -1);
+                            RunningBuy2 = false;
+                            break;
+
+                        case "Back":
+                            RunningBuy = true;
+                            RunningBuy2 = false;
+                            break;
+
+                        default:
+                            Console.WriteLine("i dont have a SPELL READY");
+                            break;
+                    }
+                }
+
+            }
+
+        }
         public static void DisplayPets(string owner)
         {
             Color color = Color.White;
@@ -169,13 +363,22 @@ namespace SuperAutoSimulator
                 color = Color.Blue;
                 foreach (var Pet in playerPets)
                 {
-                    result += $"{Pet.Position + 1} - {Pet.Name}, Health: {Pet.Health}, Attack: {Pet.Attack}, Position: {Pet.Position}\n";
+                    result += $"{Pet.Position + 1} - {Pet.Name}, Health: {Pet.Health}, Attack: {Pet.Attack}, Position: {Pet.Position + 1}\n";
                 }
             }
+            if (owner == "PlayerFighting")
+            {
+                color = Color.Blue;
+                foreach (var Pet in Battle.PetsFighting)
+                {
+                    result += $"{Pet.Position + 1} - {Pet.Name}, Health: {Pet.Health}, Attack: {Pet.Attack}, Position: {Pet.Position + 1}\n";
+                }
+            }
+
             else if (owner == "Enemy")
             {
                 color = Color.Red;
-                foreach (var Pet in playerPets)
+                foreach (var Pet in enemyPets)
                 {
                     result += $"{Pet.Name}, Health: {Pet.Health}, Attack: {Pet.Attack}, Position: {Pet.Position}\n";
                 }
@@ -292,8 +495,8 @@ namespace SuperAutoSimulator
                 $"Hearts: {hearts}\n" +
                 $"Coins: {playerCoins}\n" +
                 $"Stars: {starsOwned}\n" +
-                $"Round: {gameNumber}" +
-                $"Shop Tier: {CurrentTier}");
+                $"Round: {gameNumber}\n" +
+                $"Shop Tier: {CurrentTier}\n");
         }
     }
 }
