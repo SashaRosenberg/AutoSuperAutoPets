@@ -66,7 +66,22 @@
     {
         target.Health -= this.Attack;
     }
+    public void Upgrade(Pet sub)
+    {
+        Level = Level + sub.Level;
+        Attack = Attack + sub.Attack;
+        Health = Health + sub.Health;
+        switch (Level)
+        {
+            case 3:
+                break;
+            case 6:
+                break;
+            case 9:
+                break;
+        }
 
+    }
     public void trigger()
     { this.Attack = 0; }
 

@@ -303,12 +303,11 @@ namespace SuperAutoSimulator
                         break;
 
                     default:
-                        Console.WriteLine("i dont have a SPELL READY");
                         break;
                 }
                 while (RunningBuy2)
                 {
-                    Console.WriteLine($"Where do you want to move {playerPets[choice]}?\n");
+                    Console.WriteLine($"Where do you want to move {playerPets[3].Name}?\n");
                     DisplayPets("Player");
                     Console.WriteLine("--Back--");
 

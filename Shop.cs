@@ -14,6 +14,25 @@ class Shop
         //playerPets = LoadRandomPets(5, CurrentTier);
         enemyPets = LoadRandomPets(5, CurrentTier);
     }
+    public static bool checkUpgradable(Pet p, Pet p2)//add ability to generate new pet next level pet here
+        //i have no idea why level three pets dont give new shop items? when did this happen????
+        //move this to pet class i think
+    {
+        //generate ref pets
+        
+        if(p.Name == p2.Name)
+        {
+            if(p.Level == 3 || p2.Level == 3)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     static void generateWhiteSpace()
     {
         if (playerPets.Any() == false)
@@ -92,26 +111,26 @@ class Shop
         }
 
     }
-    public static void MovePet(int pet, int newPos)
+    public static void MovePet(int oldPos, int newPos)
     {
-        Pet p = new Pet();
-        Pet p2 = new Pet();
-        if (playerPets[pet].Name == "-")
+        Pet op = new Pet();
+        Pet np = new Pet();
+        if(checkUpgradable(playerPets[oldPos], playerPets[newPos]))
+        {
+            playerPets[oldPos].Upgrade(playerPets[newPos]);
+        }
+        if (playerPets[oldPos].Name == "-")
         {
             //put input code here
         }
         else
         {
-            p = new Pet(playerPets[pet]);
-            p2 = new Pet(playerPets[newPos]);
-            playerPets.Remove(playerPets[pet]);
-            playerPets.Remove(playerPets[newPos]);
-
-            playerPets.Insert(pet, p);
-            playerPets[pet].Position = p.Position;
-
-            playerPets.Insert(newPos, p2);
-            playerPets[newPos].Position = p.Position;
+            op = new Pet(playerPets[oldPos]);
+            np = new Pet(playerPets[newPos]);
+            np.Position = playerPets[oldPos].Position;
+            op.Position = playerPets[newPos].Position;
+            playerPets[oldPos] = np;
+            playerPets[newPos] = op;
 
         }
         InOut.DisplayPets("Player");
